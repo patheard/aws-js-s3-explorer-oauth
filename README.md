@@ -14,4 +14,8 @@ This is an example of how to use [AWS JS S3 Explorer](https://github.com/awslabs
     google_client_id     = "your-client-id"
     google_client_secret = "your-client-secret"
     ```
-1. Run `terraform -chdir=terraform/aws apply`.
+1. Run:
+   ```sh
+   npm install --prefix ./terraform/aws/cognito-at-edge
+   terraform -chdir=./terraform/aws apply
+   ```

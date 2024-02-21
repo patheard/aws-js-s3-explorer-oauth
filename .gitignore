@@ -1,0 +1,6 @@
+node_modules
+terraform/aws/cognito-at-edge/index.js
+
+.terraform
+*.tfstate*
+*.tfvars

@@ -1,0 +1,13 @@
+const { Authenticator } = require('cognito-at-edge');
+
+const authenticator = new Authenticator({
+  logLevel: 'info',
+  cookiePath: '/',
+  region: "${REGION}",
+  userPoolId: "${COGNITO_USER_POOL_ID}",
+  userPoolAppId: "${COGNITO_USER_POOL_APP_ID}",
+  userPoolAppSecret: "${COGNITO_USER_POOL_APP_SECRET}",
+  userPoolDomain: "${COGNITO_USER_DOMAIN}",
+});
+
+exports.handler = async (request) => authenticator.handle(request);

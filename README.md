@@ -1,4 +1,4 @@
-# AWS JS S3 Explorer + Cognito@Edge
+# AWS JS S3 Explorer + Cognito@Edge :telescope: :closed_lock_with_key:
 
 This is an example of how to use [AWS JS S3 Explorer](https://github.com/awslabs/aws-js-s3-explorer/tree/v2-alpha) with [Cognito@Edge](https://github.com/awslabs/cognito-at-edge) and [Google OAuth](https://github.com/jetbrains-infra/terraform-aws-cognito-google-oauth-with-custom-domain).  It does the following:
 

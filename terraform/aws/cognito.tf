@@ -1,15 +1,15 @@
-resource "aws_cognito_user_pool" "users" {
-  name                     = "cds-snc.ca"
+resource "aws_cognito_user_pool" "s3_explorer" {
+  name                     = "s3-explorer"
   auto_verified_attributes = ["email"]
 }
 
-resource "aws_cognito_user_pool_domain" "users" {
-  domain       = "cds-snc"
-  user_pool_id = aws_cognito_user_pool.users.id
+resource "aws_cognito_user_pool_domain" "s3_explorer" {
+  domain       = "s3-explorer"
+  user_pool_id = aws_cognito_user_pool.s3_explorer.id
 }
 
 resource "aws_cognito_identity_provider" "google" {
-  user_pool_id  = aws_cognito_user_pool.users.id
+  user_pool_id  = aws_cognito_user_pool.s3_explorer.id
   provider_name = "Google"
   provider_type = "Google"
 
@@ -31,9 +31,9 @@ resource "aws_cognito_identity_provider" "google" {
   }
 }
 
-resource "aws_cognito_user_pool_client" "cognito" {
-  name                                 = "client"
-  user_pool_id                         = aws_cognito_user_pool.users.id
+resource "aws_cognito_user_pool_client" "s3_explorer" {
+  name                                 = "s3-explorer"
+  user_pool_id                         = aws_cognito_user_pool.s3_explorer.id
   supported_identity_providers         = [aws_cognito_identity_provider.google.provider_name]
   allowed_oauth_flows_user_pool_client = true
   allowed_oauth_flows                  = ["code"]

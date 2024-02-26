@@ -16,10 +16,10 @@ data "archive_file" "cognito_at_edge" {
 resource "local_file" "cognito_at_edge_index" {
   content = sensitive(templatefile("${path.module}/cognito-at-edge/index.js.tmpl", {
     REGION                       = var.region
-    COGNITO_USER_POOL_ID         = aws_cognito_user_pool.users.id
-    COGNITO_USER_POOL_APP_ID     = aws_cognito_user_pool_client.cognito.id
-    COGNITO_USER_POOL_APP_SECRET = aws_cognito_user_pool_client.cognito.client_secret
-    COGNITO_USER_DOMAIN          = "${aws_cognito_user_pool_domain.users.domain}.auth.${var.region}.amazoncognito.com"
+    COGNITO_USER_POOL_ID         = aws_cognito_user_pool.s3_explorer.id
+    COGNITO_USER_POOL_APP_ID     = aws_cognito_user_pool_client.s3_explorer.id
+    COGNITO_USER_POOL_APP_SECRET = aws_cognito_user_pool_client.s3_explorer.client_secret
+    COGNITO_USER_DOMAIN          = "${aws_cognito_user_pool_domain.s3_explorer.domain}.auth.${var.region}.amazoncognito.com"
   }))
   filename = "${path.module}/cognito-at-edge/index.js"
 }
@@ -27,7 +27,7 @@ resource "local_file" "cognito_at_edge_index" {
 resource "aws_lambda_function" "cognito_at_edge" {
   provider = aws.us-east-1
 
-  function_name    = "cognito-at-edge"
+  function_name    = "s3-explorer-cognito-at-edge"
   filename         = "/tmp/cognito-at-edge.zip"
   role             = aws_iam_role.cognito_at_edge.arn
   handler          = "index.handler"
@@ -44,12 +44,12 @@ resource "aws_lambda_function" "cognito_at_edge" {
 }
 
 resource "aws_iam_role" "cognito_at_edge" {
-  name               = "cognito-at-edge"
+  name               = "s3-explorer-cognito-at-edge"
   assume_role_policy = data.aws_iam_policy_document.cognito_at_edge.json
 }
 
 resource "aws_iam_policy" "cognito_at_edge" {
-  name   = "cognito_at_edge"
+  name   = "s3-explorer-cognito-at-edge"
   path   = "/"
   policy = data.aws_iam_policy_document.cognito_at_edge_cloudwatch.json
 }
